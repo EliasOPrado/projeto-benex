@@ -5,9 +5,7 @@ from product.models import Produto
 class TestProduto(TestCase):
     def setUp(self):
         self.produto_1 = Produto.objects.create(
-            nome="Avaianas Azul", 
-            descricao="Sandalia Avaianas azul", 
-            valor=15.50
+            nome="Avaianas Azul", descricao="Sandalia Avaianas azul", valor=15.50
         )
         self.produto_2 = Produto.objects.create(
             nome="Avaianas Vermelha",
@@ -15,14 +13,10 @@ class TestProduto(TestCase):
             valor=15.40,
         )
         self.produto_3 = Produto.objects.create(
-            nome="Avaianas Preta", 
-            descricao="Sandalia Avaianas preta", 
-            valor=15.30
+            nome="Avaianas Preta", descricao="Sandalia Avaianas preta", valor=15.30
         )
         self.produto_4 = Produto.objects.create(
-            nome="Avaianas Branca", 
-            descricao="Sandalia Avaianas branca", 
-            valor=15.20
+            nome="Avaianas Branca", descricao="Sandalia Avaianas branca", valor=15.20
         )
 
     def test_check_produto_exist(self):
