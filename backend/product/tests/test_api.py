@@ -30,15 +30,15 @@ class TestAPI(APITestCase):
         )
 
         self.new_produto_data = {
-            "nome": 
-            "Avaianas Rosa Brazil", 
-            "valor": 
-            25.50
+            "nome":"Avaianas Rosa Brazil", 
+            "descricao":"Sandalia Avaianas Rosa com simbolo do Brasil",
+            "valor":25.50
         }
 
         self.update_produto_data = {
             "id": self.produto_1.id,
             "nome": "Avaianas Cinza",
+            "descricao":"Sandalia Avaianas cinza",
             "valor": 15.75,
         }
 

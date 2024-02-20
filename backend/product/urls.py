@@ -1,9 +1,9 @@
 from django.urls import path, include
 from rest_framework import routers
-from api.viewsets import ProductViewSet
+from product.api.viewsets import ProdutoViewSet
 
 router = routers.SimpleRouter()
-router.register(r'produtos', ProductViewSet, basename="produtos")
+router.register(r'produtos', ProdutoViewSet, basename="produtos")
 
 app_name = "product"
 
