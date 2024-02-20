@@ -44,6 +44,12 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "rest_framework",
     "product",
+    "drf_yasg",
+    "corsheaders",
+]
+
+CORS_ORIGIN_WHITELIST = [
+    'http://localhost:3000',
 ]
 
 MIDDLEWARE = [

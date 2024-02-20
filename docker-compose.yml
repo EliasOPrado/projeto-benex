@@ -1,0 +1,30 @@
+version: '3.9'
+
+services:
+  db:
+    image: postgres
+    env_file:
+      - ./backend/.env 
+
+  web:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    command: bash -c "
+        python manage.py migrate &&
+        python manage.py test &&
+        python manage.py runserver 0.0.0.0:8000"
+        
+    volumes:
+      - .:/app/backend
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+    env_file:
+      - ./backend/.env 
+    restart: on-failure
+
+networks:
+  custom_network:
+    driver: bridge
