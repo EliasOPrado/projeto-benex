@@ -1,3 +1,8 @@
+/* Respect the padding and margin */
+* {
+  box-sizing: border-box;
+}
+
 body {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   margin: 0;
@@ -13,6 +18,7 @@ body {
 
 .navbar{
   display: flex;
+  align-items: center;
   width: 100%;
   height: 80px;
   border: 3px solid #bebebe;
@@ -31,6 +37,60 @@ body {
 
 .cards-container {
   width: 80%;
+}
+
+.form-container {
+  display: inline-block;
+  margin-top: 100px;
+  padding: 0 50px 50px 50px;
+  border: 3px solid #bebebe;
+  border-radius: 5px;
+}
+.form {
+  display: flex;
+  flex-direction: column;
+}
+
+.text-area-input, .main-input {
+  margin-top: 5px;
+  border-radius: 5px;
+  border: 3px solid #bebebe;
+  width: 100%;
+}
+
+.main-input {
+  height: 45px;
+}
+
+.update-button-navbar{
+  height: 30px;
+  margin-left: 50px;
+  border-radius: 5px;
+  border: 3px solid #50FA7B;
+  background-color: #50FA7B;
+  animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  70% {
+    transform: scale(1);
+    box-shadow: 0 0 0 2px #b0f7c2;
+  }
+  100% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 #50FA7B;
+  }
+}
+
+.update-button{
+  margin-top: 15px;
+  height: 50px;
+  border-radius: 5px;
+  border: 3px solid #50FA7B;
+  background-color: #50FA7B;
 }
 
 .card {
@@ -66,4 +126,8 @@ body {
   display: flex;
   align-items: center;
   font-size: 30px;
+}
+
+a {
+  text-decoration: none;
 }
