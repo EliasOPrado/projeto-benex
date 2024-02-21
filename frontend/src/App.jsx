@@ -7,6 +7,7 @@ function App() {
   const [value, setValue] = useState(0.0);
   const [description, setDescription] = useState("");
   const [showForm, setShowForm] = useState(false);
+  const [isPostForm, setIsPostForm] = useState(false)
   const [currentId, setCurrentItemId] = useState(null)
 
 
@@ -64,6 +65,7 @@ function App() {
         fetchData();
         setShowForm(false);
         setCurrentItemId(null);
+        resetFormFields();
       } else {
         console.error('Error updating item:', response.status);
       }
@@ -92,7 +94,7 @@ function App() {
         if (response.ok) {
           fetchData();
           setShowForm(false);
-          setCurrentItemId(null);
+          resetFormFields();
         } else {
           console.error('Error updating item:', response.status);
         }
@@ -115,6 +117,14 @@ function App() {
     setValue(event.target.value)
   }
 
+  const handleAddNewProduct = () => {
+    setShowForm(true);
+    setIsPostForm(true);
+    setName("");
+    setValue(0.0);
+    setDescription("");
+  };
+
   // send the current item from the list
   // to the form
   const handleEditChange = (instance) => {
@@ -123,20 +133,35 @@ function App() {
     setCurrentItemId(instance.id);
     setDescription(instance.descricao);
     setShowForm(true);
+    setIsPostForm(false);
   }
+
+  const resetFormFields = () => {
+    setName("");
+    setValue(0.0);
+    setDescription("");
+    setIsPostForm(false);
+  };
+  
 
   return (
     <div className="main-container">
       <div className="navbar">
         <h3 className="logo">Bnex Challenge</h3>
-        {showForm &&
+        {showForm ?
         <button type="submit" className="update-button-navbar" onClick={() => setShowForm(false)}>Back to products</button>
+        :
+        <button type="submit" className="update-button-navbar" onClick={handleAddNewProduct}>Add a new product</button>
         }
       </div>
       {showForm ?
         <div className="form-container">
-          <h3>Update Product</h3>
-          <form onSubmit={handleUpdate} className="form">
+          {isPostForm ? 
+            <h3>Add A New Product</h3>
+            :
+            <h3>Update Product</h3>
+          }
+          <form onSubmit={isPostForm ? handlePost : handleUpdate} className="form">
             <input 
             type="text" 
             name="nome"
@@ -155,10 +180,19 @@ function App() {
             onChange={handleDescriptionChange}
             value={description}
             className="text-area-input"></textarea>
-            <button 
-            type="submit" 
-            className="update-button"
-            >Update</button>
+            {isPostForm ? 
+              <button 
+              type="submit" 
+              className="update-button"
+              >Post
+              </button>
+            :
+              <button 
+              type="submit" 
+              className="update-button"
+              >Update
+              </button>
+            }
           </form>
         </div>
         :
