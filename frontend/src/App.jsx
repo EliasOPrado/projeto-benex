@@ -1,35 +1,67 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState, useEffect } from "react";
+import "./App.css";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [products, setProducts] = useState([]);
+
+  const fetchData = async () => {
+    try {
+      const response = await fetch(`http://127.0.0.1:8000/api/produtos/`);
+      const data = await response.json();
+      setProducts(data);
+    } catch (error) {
+      console.error("Error fetching food trucks:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  const handleDelete = async (itemId) => {
+    try {
+      const response = await fetch(`http://127.0.0.1:8000/api/produtos/${itemId}`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+
+      if (response.ok) {
+        fetchData();
+      } else {
+        console.error('Error deleting item:', response.status);
+      }
+    } catch (error) {
+      console.error('Error deleting item:', error);
+    }
+  };
+
+
 
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <div className="main-container">
+      <div className="navbar">
+        <h3 className="logo">Bnex Challenge</h3>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
+      <div className="cards-container">
+        {products.map((product) => (
+          <div className="card" key={product.id}>
+            <div className="card-left-side">
+              <h3 className="card-title">
+                <span>{product.id}</span> {product.nome}
+              </h3>
+              <p className="card-description">{product.descricao}</p>
+            </div>
+            <div className="card-right-side">
+              <i className="fa-regular fa-pen-to-square product-icon"></i>
+              <a className="product-icon" href="#" onClick={() => handleDelete(product.id)}><i className="fa-solid fa-delete-left"></i></a>
+            </div>
+          </div>
+        ))}
       </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    </div>
+  );
 }
 
-export default App
+export default App;
