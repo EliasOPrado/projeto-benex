@@ -2,11 +2,15 @@ version: '3.9'
 
 services:
   db:
+    container_name: DB-Server
     image: postgres
     env_file:
       - ./backend/.env 
+    ports:
+        - "5433:5432"
 
   backend:
+    container_name: Back-End-Server
     build:
       context: ./backend
       dockerfile: Dockerfile
@@ -26,6 +30,7 @@ services:
     restart: on-failure
 
   frontend:
+    container_name: Front-End-Server
     build:
       context: ./frontend
       dockerfile: Dockerfile
