@@ -1,6 +1,7 @@
 import React from 'react'
 
 export default function Cards({products, handleEditChange, handleDelete}) {
+    
   return (
     <div className="cards-container">
         {products.map((product) => (
