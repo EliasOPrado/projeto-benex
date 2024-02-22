@@ -12,6 +12,7 @@ export default function Form(props) {
           type="text"
           name="nome"
           value={props.name}
+          placeholder="Add a product name..."
           onChange={props.handleNameChange}
           className="main-input"
         />
@@ -19,12 +20,14 @@ export default function Form(props) {
           type="number"
           name="valor"
           value={props.value}
+          placeholder="Add a value eg.: 12.99"
           onChange={props.handleValueChange}
           className="main-input"
         />
         <textarea
           rows="5"
           cols="33"
+          placeholder="Add a descripton..."
           onChange={props.handleDescriptionChange}
           value={props.description}
           className="text-area-input"

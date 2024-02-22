@@ -7,6 +7,7 @@ body {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   margin: 0;
   padding: 0;
+  color: #3c3c3b;
 }
 
 .main-container{
@@ -26,6 +27,7 @@ body {
   padding: 10px;
   margin-bottom: 15px;
   box-sizing: border-box;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .logo{
@@ -45,7 +47,9 @@ body {
   padding: 0 50px 50px 50px;
   border: 3px solid #bebebe;
   border-radius: 5px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
+
 .form {
   display: flex;
   flex-direction: column;
@@ -56,11 +60,13 @@ body {
   border-radius: 5px;
   border: 3px solid #bebebe;
   width: 100%;
+  padding: 10px;
 }
 
 .main-input {
   height: 45px;
 }
+
 
 .update-button-navbar{
   height: 30px;
@@ -102,6 +108,7 @@ body {
   border-left: 6px solid blue;
   border-radius: 5px;
   justify-content: space-between;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .card-left-side{
@@ -130,4 +137,24 @@ body {
 
 a {
   text-decoration: none;
+}
+
+@media only screen and (max-width: 500px) {
+  .card {
+    display: flex;
+    flex-direction: column;
+    height: 150px;
+    align-items: center;
+  }
+
+  .navbar {
+    display: flex;
+    flex-direction: column;
+    height: 120px;
+    align-items: center;
+  }
+
+  h3.logo {
+    margin-bottom: 20px;
+  }
 }
