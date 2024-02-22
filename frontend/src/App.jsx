@@ -10,9 +10,9 @@ function App() {
   const [value, setValue] = useState(0.0);
   const [description, setDescription] = useState("");
   const [showForm, setShowForm] = useState(false);
-  const [isPostForm, setIsPostForm] = useState(false)
-  const [currentId, setCurrentItemId] = useState(null)
-
+  const [isPostForm, setIsPostForm] = useState(false);
+  const [currentId, setCurrentItemId] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   const fetchData = async () => {
     try {
@@ -29,21 +29,31 @@ function App() {
   }, []);
 
   const handleDelete = async (itemId) => {
+
+    // block button during request.
+    setIsLoading(true)
+
     try {
-      const response = await fetch(`http://127.0.0.1:8000/api/produtos/${itemId}`, {
-        method: 'DELETE',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
+      const response = await fetch(
+        `http://127.0.0.1:8000/api/produtos/${itemId}`,
+        {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
 
       if (response.ok) {
         fetchData();
       } else {
-        console.error('Error deleting item:', response.status);
+        console.error("Error deleting item:", response.status);
       }
     } catch (error) {
-      console.error('Error deleting item:', error);
+      console.error("Error deleting item:", error);
+    }finally {
+      // block button during request.
+      setIsLoading(false)
     }
   };
 
@@ -52,10 +62,46 @@ function App() {
     event.preventDefault();
 
     try {
-      const response = await fetch(`http://127.0.0.1:8000/api/produtos/${currentId}/`, {
-        method: 'PUT', 
+      const response = await fetch(
+        `http://127.0.0.1:8000/api/produtos/${currentId}/`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            nome: name,
+            valor: value,
+            descricao: description,
+          }),
+        }
+      );
+
+      if (response.ok) {
+        fetchData();
+        setShowForm(false);
+        setCurrentItemId(null);
+        resetFormFields();
+      } else {
+        console.error("Error updating item:", response.status);
+      }
+    } catch (error) {
+      console.error("Error updating item:", error);
+    }
+  };
+
+  // make the post request
+  const handlePost = async (event) => {
+    event.preventDefault();
+
+    // block button during request.
+    setIsLoading(true);
+
+    try {
+      const response = await fetch(`http://127.0.0.1:8000/api/produtos/`, {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({
           nome: name,
@@ -67,58 +113,31 @@ function App() {
       if (response.ok) {
         fetchData();
         setShowForm(false);
-        setCurrentItemId(null);
         resetFormFields();
       } else {
-        console.error('Error updating item:', response.status);
+        console.error("Error updating item:", response.status);
       }
     } catch (error) {
-      console.error('Error updating item:', error);
+      console.error("Error updating item:", error);
+    } finally {
+      // unblock button
+      setIsLoading(false);
     }
   };
 
-    // make the post request
-    const handlePost = async (event) => {
-      event.preventDefault();
-  
-      try {
-        const response = await fetch(`http://127.0.0.1:8000/api/produtos/`, {
-          method: 'POST', 
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            nome: name,
-            valor: value,
-            descricao: description,
-          }),
-        });
-  
-        if (response.ok) {
-          fetchData();
-          setShowForm(false);
-          resetFormFields();
-        } else {
-          console.error('Error updating item:', response.status);
-        }
-      } catch (error) {
-        console.error('Error updating item:', error);
-      }
-    };
-  
   // functions for form inputs that will
   // be used to send to the request..
   const handleNameChange = (event) => {
-    setName(event.target.value)
-  }
+    setName(event.target.value);
+  };
 
   const handleDescriptionChange = (event) => {
-    setDescription(event.target.value)
-  }
+    setDescription(event.target.value);
+  };
 
   const handleValueChange = (event) => {
-    setValue(event.target.value)
-  }
+    setValue(event.target.value);
+  };
 
   const handleAddNewProduct = () => {
     setShowForm(true);
@@ -137,7 +156,7 @@ function App() {
     setDescription(instance.descricao);
     setShowForm(true);
     setIsPostForm(false);
-  }
+  };
 
   const resetFormFields = () => {
     setName("");
@@ -145,17 +164,15 @@ function App() {
     setDescription("");
     setIsPostForm(false);
   };
-  
 
   return (
     <div className="main-container">
-       <Navbar 
-       showForm={showForm} 
-       setShowForm={setShowForm} 
-       handleAddNewProduct={handleAddNewProduct} 
-       />
-      {
-        showForm ?
+      <Navbar
+        showForm={showForm}
+        setShowForm={setShowForm}
+        handleAddNewProduct={handleAddNewProduct}
+      />
+      {showForm ? (
         <Form
           handlePost={handlePost}
           handleUpdate={handleUpdate}
@@ -166,14 +183,16 @@ function App() {
           description={description}
           handleDescriptionChange={handleDescriptionChange}
           isPostForm={isPostForm}
-         />
-        :
-      <Cards 
-        products={products}
-        handleEditChange={handleEditChange}
-        handleDelete={handleDelete}
-      />
-      }
+          isLoading={isLoading}
+        />
+      ) : (
+        <Cards
+          products={products}
+          handleEditChange={handleEditChange}
+          handleDelete={handleDelete}
+          isLoading={isLoading}
+        />
+      )}
     </div>
   );
 }

@@ -30,7 +30,7 @@ export default function Form(props) {
           className="text-area-input"
         ></textarea>
         {props.isPostForm ? (
-          <button type="submit" className="update-button">
+          <button type="submit" className="update-button" disabled={props.isLoading}>
             Post
           </button>
         ) : (
