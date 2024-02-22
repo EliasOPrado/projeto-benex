@@ -6,7 +6,7 @@ services:
     env_file:
       - ./backend/.env 
 
-  web:
+  backend:
     build:
       context: ./backend
       dockerfile: Dockerfile
@@ -24,6 +24,15 @@ services:
     env_file:
       - ./backend/.env 
     restart: on-failure
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "5173:5173"  
+    depends_on:
+      - backend 
 
 networks:
   custom_network:
