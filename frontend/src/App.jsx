@@ -1,5 +1,8 @@
 import { useState, useEffect } from "react";
 import "./App.css";
+import Navbar from "../components/Navbar";
+import Form from "../components/Form";
+import Cards from "../components/Cards";
 
 function App() {
   const [products, setProducts] = useState([]);
@@ -146,72 +149,30 @@ function App() {
 
   return (
     <div className="main-container">
-      <div className="navbar">
-        <h3 className="logo">Bnex Challenge</h3>
-        {showForm ?
-        <button type="submit" className="update-button-navbar" onClick={() => setShowForm(false)}>Back to products</button>
+       <Navbar 
+       showForm={showForm} 
+       setShowForm={setShowForm} 
+       handleAddNewProduct={handleAddNewProduct} 
+       />
+      {
+        showForm ?
+        <Form
+          handlePost={handlePost}
+          handleUpdate={handleUpdate}
+          name={name}
+          handleNameChange={handleNameChange}
+          value={value}
+          handleValueChange={handleValueChange}
+          description={description}
+          handleDescriptionChange={handleDescriptionChange}
+          isPostForm={isPostForm}
+         />
         :
-        <button type="submit" className="update-button-navbar" onClick={handleAddNewProduct}>Add a new product</button>
-        }
-      </div>
-      {showForm ?
-        <div className="form-container">
-          {isPostForm ? 
-            <h3>Add A New Product</h3>
-            :
-            <h3>Update Product</h3>
-          }
-          <form onSubmit={isPostForm ? handlePost : handleUpdate} className="form">
-            <input 
-            type="text" 
-            name="nome"
-            value={name}
-            onChange={handleNameChange}
-            className="main-input" />
-            <input 
-            type="number" 
-            name="valor" 
-            value={value}
-            onChange={handleValueChange}
-            className="main-input" />
-            <textarea 
-            rows="5" 
-            cols="33"
-            onChange={handleDescriptionChange}
-            value={description}
-            className="text-area-input"></textarea>
-            {isPostForm ? 
-              <button 
-              type="submit" 
-              className="update-button"
-              >Post
-              </button>
-            :
-              <button 
-              type="submit" 
-              className="update-button"
-              >Update
-              </button>
-            }
-          </form>
-        </div>
-        :
-      <div className="cards-container">
-        {products.map((product) => (
-          <div className="card" key={product.id}>
-            <div className="card-left-side">
-              <h3 className="card-title">
-                <span>{product.id}</span> {product.nome}
-              </h3>
-              <p className="card-description">{product.descricao}</p>
-            </div>
-            <div className="card-right-side">
-              <a className="product-icon" href="#" onClick={() => handleEditChange(product)}><i className="fa-regular fa-pen-to-square product-icon"></i></a>
-              <a className="product-icon" href="#" onClick={() => handleDelete(product.id)}><i className="fa-solid fa-delete-left"></i></a>
-            </div>
-          </div>
-        ))}
-      </div>
+      <Cards 
+        products={products}
+        handleEditChange={handleEditChange}
+        handleDelete={handleDelete}
+      />
       }
     </div>
   );
