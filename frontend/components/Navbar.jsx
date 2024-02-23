@@ -7,7 +7,8 @@ export default function Navbar(props) {
    - props:
       - showForm: State
       - setShowForm: State setter
-      - handleAddNewProduct(): 
+      - handleAddNewProduct(): Used to add actions when the button for create
+        new product is clicked.
   */
     return (
       <>

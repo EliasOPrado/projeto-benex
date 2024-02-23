@@ -5,6 +5,24 @@ import Form from "../components/Form";
 import Cards from "../components/Cards";
 
 function App() {
+    /*
+    App component used as the main component
+    node that will be displayed on #root div.
+
+    Properties:
+    - fetchData(): Used to fetch produtos from API.
+    - handleDelete(): Used to delete specific item.
+    - handleUpdate(): Used to update specific item.
+    - handlePost(): Used to create a new product.
+    - handleNameChange(): Used to get name input value.
+    - handleValueChange(): Used to get value input value.
+    - handleDescriptionChange(): Used to get description value.
+    - handleAddNewProduct(): Used to add actions setted when button.
+      to create new product is clicked.
+    - handleEditChange(): Used to add actions when the button for update
+      a specific product is clicked.
+    - resetFormFields(): Used to reset all the form fields.
+  */
   const [products, setProducts] = useState([]);
   const [name, setName] = useState("");
   const [value, setValue] = useState(0.0);
@@ -151,8 +169,7 @@ function App() {
     }
   };
 
-  // functions for form inputs that will
-  // be used to send to the request..
+
   const handleNameChange = (event) => {
     // get name input value
     setName(event.target.value);

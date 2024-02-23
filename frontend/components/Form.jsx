@@ -9,13 +9,13 @@ export default function Form(props) {
    - props:
      - name: State
      - value: State
-     - description: state
+     - description: State
      - isPostForm(): State
-     - handlePost(): Function
-     - handleUpdate(): Function
-     - handleNameChange(): Function
-     - handleValueChange(): Function
-     - handleDescriptionChange(): Function 
+     - handlePost(): Used to create a new product.
+     - handleUpdate(): Used to update specific item.
+     - handleNameChange(): Used to get name input value.
+     - handleValueChange(): Used to get value input value.
+     - handleDescriptionChange(): Used to get description input value.
   */
   return (
     <div className="form-container">

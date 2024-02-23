@@ -9,9 +9,10 @@ export default function Cards(props) {
 
    Properties:
    - props:
-     - products: State
-     - handleEditChange(): Function
-     - handleDelete(): Function
+     - products: State.
+     - handleDelete(): Used to delete specific item.
+     - handleEditChange(): Used to add actions when the button for update
+       a specific product is clicked.
   */
   return (
     <div className="cards-container">
