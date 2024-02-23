@@ -14,3 +14,10 @@ Ao fazer o procedimento de configuração rode o seguinte comando para fazer o p
 ```
 docker compose up --build
 ```
+### Links para acesso:
+
+Backend: `http://127.0.0.1:8000/api/produtos/`
+
+Backend-documentation: `http://127.0.0.1:8000/swagger/`
+
+Frontend: `http://localhost:5173/`
