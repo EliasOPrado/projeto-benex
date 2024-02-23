@@ -15,6 +15,10 @@ function App() {
   const [isLoading, setIsLoading] = useState(false);
 
   const fetchData = async () => {
+    /*
+     fetches data from the backend server
+     and set the data to the `products`state.
+    */
     try {
       const response = await fetch(`http://127.0.0.1:8000/api/produtos/`);
       const data = await response.json();
@@ -29,7 +33,13 @@ function App() {
   }, []);
 
   const handleDelete = async (itemId) => {
+    /*
+      Deletes a single item from database based on the itemId
 
+      Behaviours:
+      - setIsloading(): State used to block button during request.
+      - fetchData(): Used to retrieve data from db updating the product view.
+    */
     // block button during request.
     setIsLoading(true)
 
@@ -57,8 +67,16 @@ function App() {
     }
   };
 
-  // make the update request
   const handleUpdate = async (event) => {
+    /*
+      Updates a single item from database based on the itemId
+
+      Behaviours:
+      - setShowForm(): Used to hide/show form
+      - fetchData(): Used to retrieve data from db updating the product view.
+      - setCurrentId(): Used to get the id that will be used into the update function.
+      - resetFormFields(): Used to reset the fields from the form after the response.ok.
+    */
     event.preventDefault();
 
     try {
@@ -90,8 +108,17 @@ function App() {
     }
   };
 
-  // make the post request
   const handlePost = async (event) => {
+    /*
+      Function used to create a new post into DB.
+
+      Behaviours:
+      - setIsLoading(): Load balancing to avoid sending multiple posts when-
+        clicking button multiple times.
+      - fetchData(): Used to retrieve data from db updating the product view.
+      - setShowForm(): Used to hide/show form.
+      - resetFormFields(): Used to reset the fields from the form after the response.ok.
+    */
     event.preventDefault();
 
     // block button during request.
@@ -120,7 +147,6 @@ function App() {
     } catch (error) {
       console.error("Error updating item:", error);
     } finally {
-      // unblock button
       setIsLoading(false);
     }
   };
@@ -128,18 +154,25 @@ function App() {
   // functions for form inputs that will
   // be used to send to the request..
   const handleNameChange = (event) => {
+    // get name input value
     setName(event.target.value);
   };
 
   const handleDescriptionChange = (event) => {
+    // get description input value
     setDescription(event.target.value);
   };
 
   const handleValueChange = (event) => {
+    // get valor input value
     setValue(event.target.value);
   };
 
   const handleAddNewProduct = () => {
+    /*
+    Actions setted when button to create
+    new product is clicked.
+    */
     setShowForm(true);
     setIsPostForm(true);
     setName("");
@@ -147,9 +180,11 @@ function App() {
     setDescription("");
   };
 
-  // send the current item from the list
-  // to the form
   const handleEditChange = (instance) => {
+    /*
+    Actions setted when button to to update
+    a specific product is clicked.
+    */
     setName(instance.nome);
     setValue(instance.valor);
     setCurrentItemId(instance.id);
@@ -159,6 +194,7 @@ function App() {
   };
 
   const resetFormFields = () => {
+    // reset all the form fields
     setName("");
     setValue(0.0);
     setDescription("");

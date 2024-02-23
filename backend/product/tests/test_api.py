@@ -7,7 +7,18 @@ from product.models import Produto
 
 
 class TestAPI(APITestCase):
+    """
+    API test case class
+
+    Methods:
+    - setUp(): set up initial configuration
+    - test_get_produtos(): Test if product returns product list
+    - test_update_product(): Test if single product is being updated
+    - test_create_product(): Test if a single product is being created
+    - test_delete_product(): Test if a single product is being deleted
+    """
     def setUp(self):
+        """Set up initial configuration"""
         self.produto_1 = Produto.objects.create(
             nome="Avaianas Azul", 
             descricao="Sandalia Avaianas azul", 

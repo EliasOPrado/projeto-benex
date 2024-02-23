@@ -3,7 +3,20 @@ from product.models import Produto
 
 
 class TestProduto(TestCase):
+    """
+    Product model test class
+
+    Methods:
+    - setUp(): set up initial configuraton
+    - test_check_produto_exist(): test if product indeed exist
+    - test_if_produto_attributes_correctiveness(): Test if product -
+      attributes has the correct types.
+    - test_values_created_into_produto_table(): Test if initial -
+      data is being inserted correctly.
+    """
+
     def setUp(self):
+        """Set up initial configuration"""
         self.produto_1 = Produto.objects.create(
             nome="Avaianas Azul", descricao="Sandalia Avaianas azul", valor=15.50
         )

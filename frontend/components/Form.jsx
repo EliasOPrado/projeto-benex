@@ -1,6 +1,22 @@
 import React from "react";
 
 export default function Form(props) {
+  /* 
+   Form component used to display update and post 
+   form conditionally.
+
+   Properties:
+   - props:
+     - name: State
+     - value: State
+     - description: state
+     - isPostForm(): State
+     - handlePost(): Function
+     - handleUpdate(): Function
+     - handleNameChange(): Function
+     - handleValueChange(): Function
+     - handleDescriptionChange(): Function 
+  */
   return (
     <div className="form-container">
       {props.isPostForm ? <h3>Add A New Product</h3> : <h3>Update Product</h3>}
@@ -36,7 +52,7 @@ export default function Form(props) {
           <button type="submit" className="update-button" disabled={props.isLoading}>
             Post
           </button>
-        ) : (
+            ) : (
           <button type="submit" className="update-button">
             Update
           </button>
